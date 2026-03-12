@@ -1,0 +1,39 @@
+apiVersion: appstudio.redhat.com/v1beta2
+kind: IntegrationTestScenario
+metadata:
+  creationTimestamp: "2026-03-09T01:41:34Z"
+  generation: 1
+  labels:
+    test.appstudio.openshift.io/optional: "true"
+  name: test-ci-cara
+  namespace: wlin-tenant
+  ownerReferences:
+  - apiVersion: appstudio.redhat.com/v1alpha1
+    blockOwnerDeletion: false
+    controller: false
+    kind: Application
+    name: test-repo
+    uid: 09d1fa35-97bd-4b1f-ab26-b33d428cb5ad
+  resourceVersion: "3034153055"
+  uid: e53bdee0-6924-44ed-a7d3-629a98cfd1e7
+spec:
+  application: test-repo
+  contexts:
+  - description: execute the integration test in all cases - this would be the default
+      state
+    name: application
+  params:
+  - name: konflux-test-infra-secret
+    value: quay-secret
+  - name: cloud-credential-key
+    value: konflux-test-infra
+  resolverRef:
+    params:
+    - name: url
+      value: https://github.com/testcara/konflux-ui-test.git
+    - name: revision
+      value: test-ci-1
+    - name: pathInRepo
+      value: integration-tests/Pipelines/e2e-main-pipeline.yaml
+    resolver: git
+    resourceKind: pipeline
